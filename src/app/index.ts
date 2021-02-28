@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import version from './version';
 import account from './account';
 import user from './user';
+import image from './image';
 import errorHandler from '../middlewares/errorHandler';
 import tokenValidation from '../middlewares/tokenValidation';
 import type { Application } from 'express';
@@ -16,6 +17,7 @@ export default function create(): Application {
   app.use('/api/account', account);
   app.use(tokenValidation);
   app.use('/api/user', user);
+  app.use('/api/image', image);
   app.use(errorHandler);
   return app;
 }
