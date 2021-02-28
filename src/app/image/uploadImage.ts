@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from 'axios';
 import config from '../../config';
 import FormData from 'form-data';
@@ -9,12 +8,12 @@ export default async function uploadImage(req: Request, res: Response, next: Nex
     const userid: string = req.headers.userId as string;
     const form = new FormData();
     form.append('photo', req.file.buffer, {
-      contentType: 'image/jpeg',
-      filename: 'dummy.jpg',
+      contentType: req.file.mimetype,
+      filename: req.file.originalname
     });
     const { data } = await axios.request({
       method: 'post',
-      url: `https://instagclone-img.herokuapp.com/api/upload`,
+      url: `${config.imageHost}/api/upload`,
       headers: {
         'Content-Type': `multipart/form-data; boundary=${form.getBoundary()}`,
         userid: userid
